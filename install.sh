@@ -1,11 +1,11 @@
 # Common YUM and RPM packages across the servers
 
-sudo cp ./subscription-manager.conf.j2 subscription-manager.conf
+sudo cp ./subscription-manager.conf.j2 /etc/yum/subscription-manager.conf
 sudo cp ./product-id.conf.j2 /etc/yum/pluginconf.d/product-id.conf
 sudo rm -rfv /var/cache/yum/*
 sudo yum clean all
 sudo yum -y update
-sudo yum -y install git vim java wget unzip net-tools
+sudo yum -y install git vim wget unzip net-tools java-1.8.0-openjdk.x86_64
 # -- > END < -- #
 
 
@@ -51,6 +51,21 @@ sudo systemctl status sonar
 
 [Binary-repo-server]
 nexus-server:ip
+
+cd /opt
+sudo wget http://download.sonatype.com/nexus/3/nexus-3.23.0-03-unix.tar.gz
+sudo tar -xvf nexus-3.23.0-03-unix.tar.gz
+sudo mv nexus-3.23.0-03 nexus
+sudo adduser nexus
+sudo chown -R nexus:nexus /opt/nexus
+sudo chown -R nexus:nexus /opt/sonatype-work
+cp ./templates/nexus.rc.j2 /opt/nexus/bin/nexus.rc
+cp ./templates/nexus.vmoptions.j2 /opt/nexus/bin/nexus.vmoptions
+cp ./templates/nexus.service.j2 /etc/systemd/system/nexus.service
+sudo ln -s /opt/nexus/bin/nexus /etc/init.d/nexus
+sudo chkconfig --add nexus
+sudo chkconfig --levels 345 nexus on
+sudo service nexus start
 
 [QA- Staging]
 tomcat-server:ip
