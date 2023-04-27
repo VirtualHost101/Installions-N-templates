@@ -72,10 +72,12 @@ tomcat-server:ip
 
 wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.74/bin/apache-tomcat-9.0.74.tar.gz
 tar -xvf <file name>
-mv <file name> tomcat9
-sudo useradd -r tomcat
-sudo chown -R tomcat:tomcat /home/ec2-user/tomcat9
-
-
-
+mv <file name> tomcat
+cp tomcat-host-manager-context.xml.j2 /tomcat/webapps/host-manager/META-INF/context.xml (to give access to IPs)
+cp tomcat-manager-context.xml.j2 /tomcat/webapps/manager/META-INF/context.xml (to give access to IPs)
+cp tomcat-server.xml.j2 /tomcat/config/sever.xml (to change port number)
+cp tomcat-users.xml.j2 /tomcat/config/tomcat-users.xml (add tomcat roles, users and passwords to grant access)
+cd /bin/
+sh startup.sh
+localhost:8080
 
