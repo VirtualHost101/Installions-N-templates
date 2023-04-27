@@ -1,6 +1,6 @@
 # Common YUM and RPM packages across the servers
 
-sudo cp ./subscription-manager.conf.j2 /etc/yum/subscription-manager.conf
+sudo cp ./subscription-manager.conf.j2 /etc/yum/pluginconf.d/subscription-manager.conf
 sudo cp ./product-id.conf.j2 /etc/yum/pluginconf.d/product-id.conf
 sudo rm -rfv /var/cache/yum/*
 sudo yum clean all
@@ -67,9 +67,15 @@ sudo chkconfig --add nexus
 sudo chkconfig --levels 345 nexus on
 sudo service nexus start
 
-[QA- Staging]
+[QA- Staging] && [Prod-Staging]
 tomcat-server:ip
 
-[Prod-Staging]
-tomcat-server:ip
+wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.74/bin/apache-tomcat-9.0.74.tar.gz
+tar -xvf <file name>
+mv <file name> tomcat9
+sudo useradd -r tomcat
+sudo chown -R tomcat:tomcat /home/ec2-user/tomcat9
+
+
+
 
