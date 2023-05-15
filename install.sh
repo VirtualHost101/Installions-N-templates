@@ -13,6 +13,13 @@ sudo yum -y install git vim wget unzip net-tools java-1.8.0-openjdk.x86_64
 maven-build-server:ip
 
 sudo yum -y install maven
+mvn clean
+mvn validate
+mvn compile
+mvn test
+mvn package
+mvn deploy
+
 
 [Test]
 sonarqube-server:ip
