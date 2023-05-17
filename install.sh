@@ -25,7 +25,7 @@ mvn deploy
 sonarqube-server:ip
 ## Installing PostgreSQL 14 Database for SonarQube
 sudo yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
-sudo yum -qy module disable postgresql
+sudo yum -y module disable postgresql
 sudo yum -y install postgresql14 postgresql14-server
 sudo /usr/pgsql-14/bin/postgresql-14-setup initdb
 sudo systemctl enable --now postgresql-14
@@ -88,3 +88,13 @@ cd /bin/
 sh startup.sh
 localhost:8080
 
+[Jenkins setup]
+
+website - " jenkins.io"
+sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+sudo yum -y install fontconfig java-11-openjdk
+sudo yum -y install jenkins
+sudo systemctl enable jenkins
+sudo systemctl start jenkins
+--> FOR 1st TIME find password <-- sudo cat /var/lib/jenkins/secrets/initialAdminPassword
