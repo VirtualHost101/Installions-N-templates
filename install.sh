@@ -36,7 +36,7 @@ psql
 ALTER USER sonar WITH ENCRYPTED password 'sonar';
 CREATE DATABASE sonarqube OWNER sonar;
 GRANT ALL PRIVILEGES ON DATABASE sonarqube to sonar; 
-\q
+
 exit
 # Creating Sonar Qube User's and Password
 sudo useradd sonar
